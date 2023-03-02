@@ -55,7 +55,7 @@ public class DialogflowClient {
                 SessionName session = SessionName.of(projectId, sessionId);
 
                 // Set the text (hello) and language code (en-US) for the query
-                TextInput.Builder textInput = TextInput.newBuilder().setText(actioRequest.userInput)
+                TextInput.Builder textInput = TextInput.newBuilder().setText(actioRequest.getUserInput())
                                 .setLanguageCode(languageCode);
                 // Build the query with the TextInput
                 
@@ -63,9 +63,9 @@ public class DialogflowClient {
                 
                 ObjectMapper mapper = new ObjectMapper();
                 DetectIntentRequest request;
-                if ( !(actioRequest.customPayload == null) ) {
+                if ( !(actioRequest.getCustomPayload() == null) ) {
                         
-                        String CustompayloadString = mapper.writeValueAsString(actioRequest.customPayload);
+                        String CustompayloadString = mapper.writeValueAsString(actioRequest.getCustomPayload());
                         Value custompayload = Value.newBuilder().setStringValue(CustompayloadString.toString()).build();
                         Struct newstruct = Struct.newBuilder().putFields("jstring", custompayload).build();
                         QueryParameters queryparam = QueryParameters.newBuilder().setPayload(newstruct).build();

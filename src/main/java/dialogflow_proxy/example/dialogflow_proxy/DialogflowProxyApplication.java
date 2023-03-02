@@ -15,10 +15,7 @@ public class DialogflowProxyApplication {
 
 	
 	public static void main(String[] args) throws IOException {
-
-		
 		SpringApplication.run(DialogflowProxyApplication.class, args);
-		
 	}
 	
 }

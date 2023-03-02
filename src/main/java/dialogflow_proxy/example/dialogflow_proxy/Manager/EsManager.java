@@ -26,7 +26,7 @@ import dialogflow_proxy.example.Model.BotExchangeResponse.BranchType;
 import dialogflow_proxy.example.Model.VirtualAgentRequest.UserInputType;
 import dialogflow_proxy.example.dialogflow_proxy.DialogflowClient;
 
-public class Es {
+public class EsManager {
 
     DialogflowClient dialogflowClient = new DialogflowClient();
     public String performBotExchange(VirtualAgentRequest actionRequest) throws ApiException, IOException, ParseException {
@@ -35,16 +35,16 @@ public class Es {
         dialogflowClient.createSession();
         }
         
-        if (actionRequest.userInput.equalsIgnoreCase("silence")) {
+        if (actionRequest.getUserInput().equalsIgnoreCase("silence")) {
             // BotExchange
             botResponse = initiateBotExchange(actionRequest);
         } 
-        else if (actionRequest.userInput != null) {
-            if (actionRequest.userInputType == UserInputType.AUTOMATED_TEXT) {
+        else if (actionRequest.getUserInput() != null) {
+            if (actionRequest.getUserInputType() == UserInputType.AUTOMATED_TEXT) {
                 // BotExchange
                 botResponse = initiateBotExchange(actionRequest);
 
-            } else if (actionRequest.userInputType == UserInputType.TEXT) {
+            } else if (actionRequest.getUserInputType() == UserInputType.TEXT) {
                 // BotExchange
                 botResponse = initiateBotExchange(actionRequest);
             }
@@ -97,7 +97,7 @@ public class Es {
         Intentinfo intentInfo = new Intentinfo();
         Map<String, Object> customPayload = new HashMap<String, Object>();
         ObjectMapper oMapper = new ObjectMapper();
-        List<PromptDefinition> prompt = new ArrayList<PromptDefinition>();
+       
 
         DetectIntentResponse responseResult = dialogflowClient.detectIntentTexts("complex-bot-h99l", actioRequest,
                 "23926", "en-US");
@@ -105,9 +105,9 @@ public class Es {
         List<Message> res = queryResult.getFulfillmentMessagesList();
         sessionState.setSessionID("1835294");
 
-        intentInfo.lastUserUtterance = actioRequest.userInput;
-        intentInfo.intentConfidence = queryResult.getIntentDetectionConfidence();
-        intentInfo.intent = queryResult.getIntent().getDisplayName();
+        intentInfo.setLastUserUtterance(actioRequest.getUserInput());
+        intentInfo.setIntentConfidence(queryResult.getIntentDetectionConfidence());
+        intentInfo.setIntent(queryResult.getIntent().getDisplayName());
 
         for (int i = 0; i < res.size(); i++) {
             PromptDefinition responsePrompt = new PromptDefinition();
@@ -121,25 +121,23 @@ public class Es {
                     botResponse.setCustomPayload(customPayload);
                 } else {
                     responsePrompt.setMediaSpecificObject(CustomPayloadObject);
-                    prompt.add(responsePrompt);
-                    botResponse.setIntentInfo(intentInfo);
-                    botResponse.nextPromptSequence.setPrompts(prompt);
+                    botResponse = setBotInfo(responsePrompt,intentInfo,botResponse);
+                   
                 }
 
             } else {
                 responsePrompt.setTranscript(res.get(i).getText().getText(0));
-                prompt.add(responsePrompt);
-                botResponse.setIntentInfo(intentInfo);
-                botResponse.nextPromptSequence.setPrompts(prompt);
+                botResponse = setBotInfo(responsePrompt,intentInfo,botResponse);
             }
         }
 
-        if (actioRequest.userInput.equalsIgnoreCase("silence")) {
+        if (actioRequest.getUserInput().equalsIgnoreCase("silence")) {
             botResponse.setBranchName(BranchType.UserInputTimeout);
         } 
         else if (queryResult.getIntent().getEndInteraction()) 
         {
             botResponse.setBranchName(BranchType.ReturnControlToScript);
+            sessionState=null;
         } 
         else if (queryResult.getIntent().getIsFallback()) 
         {
@@ -159,5 +157,13 @@ public class Es {
         catch(Exception ex){
             System.out.println(ex);
         }
+    }
+
+    BotExchangeResponse setBotInfo(PromptDefinition responsePrompt,Intentinfo intentInfo ,BotExchangeResponse botResponse){
+        List<PromptDefinition> prompt = new ArrayList<PromptDefinition>();
+        prompt.add(responsePrompt);
+        botResponse.setIntentInfo(intentInfo);
+        botResponse.nextPromptSequence.setPrompts(prompt);
+        return botResponse;
     }
 }

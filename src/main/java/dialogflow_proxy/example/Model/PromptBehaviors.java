@@ -1,8 +1,8 @@
 package dialogflow_proxy.example.Model;
 
 public class PromptBehaviors {
-    public SilenceRules silenceRules;
-    public AudioCollectionRules audioCollectionRules;
+    private SilenceRules silenceRules;
+    private AudioCollectionRules audioCollectionRules;
 
     public SilenceRules getSilenceRules() {
         return this.silenceRules;

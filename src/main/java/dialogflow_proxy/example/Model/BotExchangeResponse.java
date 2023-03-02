@@ -86,8 +86,8 @@ public class BotExchangeResponse {
         this.nextPromptSequence = new PromptSequence();
         this.intentInfo = new Intentinfo();
         this.nextPromptBehaviors = new PromptBehaviors();
-        this.nextPromptBehaviors.audioCollectionRules.collectionType = AudioCollectionRules.UserInputCollectType.DO_NOT_COLLECT_USER_RESPONSE;
-        this.nextPromptBehaviors.audioCollectionRules.dtmfRules=CollectDtmfRules.SurveyResponseSettings();
+        this.nextPromptBehaviors.getAudioCollectionRules().setCollectionType(AudioCollectionRules.UserInputCollectType.DO_NOT_COLLECT_USER_RESPONSE);
+        this.nextPromptBehaviors.getAudioCollectionRules().setDtmfRules(CollectDtmfRules.SurveyResponseSettings());
         this.customPayload=new HashMap<String,Object>();
     }
    

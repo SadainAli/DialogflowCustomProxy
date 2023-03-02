@@ -1,12 +1,12 @@
 package dialogflow_proxy.example.Model;
 
 public class CollectDtmfRules {
-    public boolean detectDtmf;
-    public boolean clearDigits;
-    public String terminationCharacters;
-    public boolean stripTerminator;
-    public int interDigitTimeoutMilliseconds;
-    public int maxDigits;
+    private boolean detectDtmf;
+    private boolean clearDigits;
+    private String terminationCharacters;
+    private boolean stripTerminator;
+    private int interDigitTimeoutMilliseconds;
+    private int maxDigits;
 
     public boolean isDetectDtmf() {
         return this.detectDtmf;

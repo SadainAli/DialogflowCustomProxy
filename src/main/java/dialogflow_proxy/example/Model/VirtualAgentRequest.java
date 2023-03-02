@@ -13,16 +13,16 @@ public class VirtualAgentRequest {
         AUTOMATED_TEXT,
         DTMF_AS_TEXT
     }
-    public String virtualAgentId;
-    public Object botConfig;
-    public String userInput;
-    public UserInputType userInputType;
-    public ActionexecutionInfo executionInfo;
-    public String systemTelemetryData;
-    public String base64wavFile;
-    public BotSessionState botSessionState;
-    public Map<String, Object> customPayload;
-    public String mediaType;
+    private String virtualAgentId;
+    private Object botConfig;
+    private String userInput;
+    private UserInputType userInputType;
+    private ActionexecutionInfo executionInfo;
+    private String systemTelemetryData;
+    private String base64wavFile;
+    private BotSessionState botSessionState;
+    private Map<String, Object> customPayload;
+    private String mediaType;
 
     public String getVirtualAgentId() {
         return this.virtualAgentId;

@@ -1,7 +1,7 @@
 package dialogflow_proxy.example.Model;
 
 public class PromptBargeConfiguration {
-    public boolean enableSpeakerBarge;
+    private boolean enableSpeakerBarge;
 
     public boolean isEnableSpeakerBarge() {
         return this.enableSpeakerBarge;

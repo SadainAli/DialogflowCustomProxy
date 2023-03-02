@@ -6,10 +6,10 @@ public class AudioCollectionRules {
         SEND_UTTERANCE_AUDIO, 
         SEND_DTMF_ONLY_AS_TEXT
     }
-    public UserInputCollectType collectionType;
-    public CollectDtmfRules dtmfRules;
-    public PromptBargeConfiguration bargeConfiguration;
-    public AudioTranscriptionConfig audioTranscriptionConfig;
+    private UserInputCollectType collectionType;
+    private CollectDtmfRules dtmfRules;
+    private PromptBargeConfiguration bargeConfiguration;
+    private AudioTranscriptionConfig audioTranscriptionConfig;
 
     public UserInputCollectType getCollectionType() {
         return this.collectionType;

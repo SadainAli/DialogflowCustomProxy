@@ -1,10 +1,10 @@
 package dialogflow_proxy.example.Model;
 
 public class SilenceRules {
-    public boolean engageComfortSequence;
-    public int botResponseDelayTolerance;
-    public PromptSequence comfortPromptSequence;
-    public int millisecondsToWaitForUserResponse;
+    private boolean engageComfortSequence;
+    private int botResponseDelayTolerance;
+    private PromptSequence comfortPromptSequence;
+    private int millisecondsToWaitForUserResponse;
 
     public boolean isEngageComfortSequence() {
         return this.engageComfortSequence;

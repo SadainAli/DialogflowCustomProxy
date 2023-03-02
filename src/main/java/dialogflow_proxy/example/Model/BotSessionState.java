@@ -1,10 +1,10 @@
 package dialogflow_proxy.example.Model;
 
 public class BotSessionState {
-    public String ConversationName;
-    public String EndUserParticipantName;
-    public String SessionID;
-    public boolean useWelcomeMessage;
+    private String ConversationName;
+    private String EndUserParticipantName;
+    private String SessionID;
+    private boolean useWelcomeMessage;
 
     public String getConversationName() {
         return this.ConversationName;

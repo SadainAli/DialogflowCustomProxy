@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Intentinfo {
 
-    public String intent;
-    public String context;
-    public float intentConfidence;
-    public String lastUserUtterance;
-    public Map<String,Object> slots;
+    private String intent;
+    private String context;
+    private float intentConfidence;
+    private String lastUserUtterance;
+    private Map<String,Object> slots;
   
     public String getIntent() {
         return this.intent;

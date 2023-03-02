@@ -3,8 +3,8 @@ package dialogflow_proxy.example.Model;
 import java.util.List;
 
 public class AudioTranscriptionConfig {
-    public String transcriptionProfileId;
-    public List<String> hintPhrases;
+    private String transcriptionProfileId;
+    private List<String> hintPhrases;
 
     public String getTranscriptionProfileId() {
         return this.transcriptionProfileId;
