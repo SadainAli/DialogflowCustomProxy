@@ -2,7 +2,7 @@ package dialogflow_proxy.example.Model;
 
 
 public class BotErrorDetails {
-    private enum BotLoopErrorBehavior{
+    public enum BotLoopErrorBehavior{
         ReturnControlToScriptThroughErrorBranch, 
         EndContact
     }

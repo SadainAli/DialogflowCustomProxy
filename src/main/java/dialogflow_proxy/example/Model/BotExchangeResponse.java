@@ -13,13 +13,13 @@ public class BotExchangeResponse {
         UserInputTimeout, 
         UserInputNotUnderstood
     }
-    public BranchType branchName;
-    public PromptSequence nextPromptSequence;
-    public Intentinfo intentInfo;
-    public PromptBehaviors nextPromptBehaviors;
-    public Map<String, Object> customPayload;
-    public BotErrorDetails errorDetails;
-    public BotSessionState botSessionState;
+    private BranchType branchName;
+    private PromptSequence nextPromptSequence;
+    private Intentinfo intentInfo;
+    private PromptBehaviors nextPromptBehaviors;
+    private Map<String, Object> customPayload;
+    private BotErrorDetails errorDetails;
+    private BotSessionState botSessionState;
 
     public BranchType getBranchName() {
         return this.branchName;
