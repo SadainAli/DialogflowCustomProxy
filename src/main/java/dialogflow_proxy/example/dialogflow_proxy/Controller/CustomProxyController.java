@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.api.gax.rpc.ApiException;
 
 import dialogflow_proxy.example.Model.VirtualAgentRequest;
+import dialogflow_proxy.example.dialogflow_proxy.DialogflowClient;
 import dialogflow_proxy.example.dialogflow_proxy.Manager.EsManager;
 
 
 @RestController
 public class CustomProxyController {
-
     @PostMapping(path = "/proxy")
     public String test(@RequestBody VirtualAgentRequest request) throws ApiException, IOException, ParseException {
        EsManager esManager= new EsManager();

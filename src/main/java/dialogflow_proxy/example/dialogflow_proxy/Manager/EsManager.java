@@ -30,24 +30,25 @@ public class EsManager {
 
     DialogflowClient dialogflowClient = new DialogflowClient();
     BotErrorDetails botErrorDetails = new BotErrorDetails();
-    String error="";
+    String error = "";
 
     public String performBotExchange(VirtualAgentRequest actionRequest)
             throws ApiException, IOException, ParseException {
         BotExchangeResponse botResponse = new BotExchangeResponse();
-        if (dialogflowClient.sessionsClient == null) {
-            try {
-                dialogflowClient.createSession();
-            } catch (Exception ex) {
-                botResponse = setError(error, botResponse);
-            }
+        try {
+            dialogflowClient.createSession();
+        } catch (Exception ex) {
+            botResponse = setError("Incorrect Credentail", botResponse);
+            return toJsonString(botResponse);
+
         }
 
         // BotExchange
-        try {
+        if (actionRequest.getUserInput() != null) {
+
             botResponse = initiateBotExchange(actionRequest);
-        } catch (Exception ex) {
-            botResponse = setError(error, botResponse);
+        } else {
+            botResponse = setError("NO INPUT Found", botResponse);
         }
         return toJsonString(botResponse);
 
@@ -57,7 +58,6 @@ public class EsManager {
         Gson json = new Gson();
 
         return json.toJson(botResponse);
-
     }
 
     public Object fromProto(Value structValue) {
@@ -137,7 +137,7 @@ public class EsManager {
             }
             botResponse.setBotSessionState(sessionState);
         } catch (Exception ex) {
-            return setError("Res", botResponse);
+            return setError("NO Response", botResponse);
         }
         return botResponse;
     }
@@ -152,8 +152,8 @@ public class EsManager {
         return botResponse;
     }
 
-    BotExchangeResponse setError(String error, BotExchangeResponse botResponse) {
-        botErrorDetails.setSystemErrorMessage(error);
+    BotExchangeResponse setError(String ex, BotExchangeResponse botResponse) {
+        botErrorDetails.setSystemErrorMessage(ex);
         botResponse.setBranchName(BranchType.Error);
         botResponse.setErrorDetails(botErrorDetails);
         return botResponse;

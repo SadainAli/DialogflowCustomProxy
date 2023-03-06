@@ -25,10 +25,11 @@ import java.io.InputStream;
 import org.json.simple.parser.ParseException;
 
 public class DialogflowClient {
-
-        public SessionsClient sessionsClient;
-
+        public SessionsClient sessionClient;
+        public SessionName session ;
+        
         public void createSession() throws IOException {
+            
                 Dotenv env = Dotenv.configure().ignoreIfMalformed().load();
                 String credential = env.get("CREDENTIAL");
                 InputStream targetStream = new ByteArrayInputStream(credential.getBytes());
@@ -41,18 +42,16 @@ public class DialogflowClient {
                 SessionsSettings.Builder settingsBuilder = SessionsSettings.newBuilder();
                 SessionsSettings sessionsSettings = settingsBuilder
                                 .setCredentialsProvider(FixedCredentialsProvider.create(credentials)).build();
-                sessionsClient = SessionsClient.create(sessionsSettings);
-
+                sessionClient = SessionsClient.create(sessionsSettings);   
         }
 
         // DialogFlow API Detect Intent sample with text inputs.
         public DetectIntentResponse detectIntentTexts(
                         String projectId, VirtualAgentRequest actioRequest, String sessionId, String languageCode)
                         throws IOException, ApiException, ParseException {
-
+                
                 // What does sessionName do?
-                SessionName session = SessionName.of(projectId, sessionId);
-
+                session = SessionName.of(projectId, sessionId);
                 // Set the text (hello) and language code (en-US) for the query
                 TextInput.Builder textInput = TextInput.newBuilder().setText(actioRequest.getUserInput())
                                 .setLanguageCode(languageCode);
@@ -80,10 +79,9 @@ public class DialogflowClient {
                                         .setQueryInput(queryInput)
                                         .build();
                 }
-               
-                // Performs the detect intent request
-                DetectIntentResponse response = sessionsClient.detectIntent(request);
 
+                // Performs the detect intent request
+                DetectIntentResponse response = sessionClient.detectIntent(request);
                 return response;
 
         }
